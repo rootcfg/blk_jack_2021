@@ -39,11 +39,11 @@ class User
   end
 
   def  accept_bet
-    @bank.credit
+    @bank.debit
   end
 
   def increase_balance
-    @bank.debit
+    @bank.credit
   end
 
   protected
