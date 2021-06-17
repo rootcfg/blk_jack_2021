@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Game
+
   def initialize(interface, game_bank, dealer_bank, player_bank)
     @interface = interface
     @interface.game_greeting
@@ -42,6 +43,7 @@ class Game
   def accept_bets
     @bank.amount += @player.accept_bet
     @bank.amount += @dealer.accept_bet
+    puts "Accept Beat: #{@bank.amount}"
   end
 
   def deal_cards
@@ -74,8 +76,8 @@ class Game
   def open_cards
     self.game_over = true
     @interface.confirm_open_cards
-    show_info
     determine_winner
+    show_info
     clear_bank
     collect_cards
     show_balances
@@ -89,8 +91,8 @@ class Game
   end
 
   def show_balances
-    @player.bank.amount
-    @dealer.bank.amount
+    Printer::print_message(@player.bank.amount)
+    Printer::print_message(@dealer.bank.amount)
   end
 
   def show_info
@@ -115,12 +117,18 @@ class Game
     if player_score > GameRules::WIN_SCORE || dealer_score > GameRules::WIN_SCORE
       @interface.perebor
       stop_game
+      puts "deter_win 1 #{@bank.amount}"
     elsif @hand.drawn?(player_score, dealer_score)
       @interface.drawn_game
+      puts "deter_win 2 #{@bank.amount}"
     elsif @hand.player_win?(player_score, dealer_score)
       @player.increase_balance
+      @bank.credit
+      puts "deter_win 3 #{@bank.amount}"
     else
       @dealer.increase_balance
+      @bank.credit
+      puts "deter_win 4 #{@bank.amount}"
     end
   end
 

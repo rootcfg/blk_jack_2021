@@ -12,7 +12,7 @@ class Interface
 
     name
   rescue StandardError
-    puts 'Name cannot be blank. Please try again.'.orange
+    puts 'Name cannot be blank. Please try again.'.blue
     retry
   end
 
