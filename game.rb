@@ -43,7 +43,6 @@ class Game
   def accept_bets
     @bank.amount += @player.accept_bet
     @bank.amount += @dealer.accept_bet
-    puts "Accept Beat: #{@bank.amount}"
   end
 
   def deal_cards
@@ -78,10 +77,12 @@ class Game
     @interface.confirm_open_cards
     determine_winner
     show_info
-    clear_bank
     collect_cards
     show_balances
-    @interface.exit_game if players_cannot_play?
+    if players_cannot_play?
+      @interface.exit_game
+      clear_bank
+    end
     @interface.show_base_commands
   end
 
