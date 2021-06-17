@@ -117,18 +117,14 @@ class Game
     if player_score > GameRules::WIN_SCORE || dealer_score > GameRules::WIN_SCORE
       @interface.perebor
       stop_game
-      puts "deter_win 1 #{@bank.amount}"
     elsif @hand.drawn?(player_score, dealer_score)
       @interface.drawn_game
-      puts "deter_win 2 #{@bank.amount}"
     elsif @hand.player_win?(player_score, dealer_score)
       @player.increase_balance
-      @bank.credit
-      puts "deter_win 3 #{@bank.amount}"
+      @bank.debit
     else
       @dealer.increase_balance
-      @bank.credit
-      puts "deter_win 4 #{@bank.amount}"
+      @bank.debit
     end
   end
 
