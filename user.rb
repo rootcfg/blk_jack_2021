@@ -38,7 +38,7 @@ class User
     @opened_cards = false
   end
 
-  def  accept_bet
+  def accept_bet
     @bank.debit
   end
 

@@ -117,14 +117,16 @@ class Game
     dealer_score = @hand.score(@dealer.cards)
     if player_score > GameRules::WIN_SCORE || dealer_score > GameRules::WIN_SCORE
       @interface.perebor
+      players_increase_balance
       stop_game
     elsif @hand.drawn?(player_score, dealer_score)
       @interface.drawn_game
+      players_increase_balance
     elsif @hand.player_win?(player_score, dealer_score)
-      @player.increase_balance
+      2.times { @player.increase_balance }
       @bank.debit
     else
-      @dealer.increase_balance
+      2.times { @dealer.increase_balance }
       @bank.debit
     end
   end
